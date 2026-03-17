@@ -5,7 +5,7 @@ import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '.
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: '/',
 };
@@ -113,7 +113,12 @@ export async function refresh(req, res) {
  * POST /auth/logout - clear refresh cookie
  */
 export async function logout(req, res) {
-  res.clearCookie('refreshToken', { path: '/' });
+  const opts = { path: '/' };
+  if (process.env.NODE_ENV === 'production') {
+    opts.sameSite = 'none';
+    opts.secure = true;
+  }
+  res.clearCookie('refreshToken', opts);
   res.json({ message: 'Logged out' });
 }
 

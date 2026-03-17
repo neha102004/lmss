@@ -267,9 +267,11 @@ After seeding: **Email:** `demo@lms.com` **Password:** `demo123`
 
 ## Deployment
 
-- **Backend:** Deploy to [Render](https://render.com) (Web Service). Set env vars; use Render’s MySQL or keep Aiven and set `DATABASE_URL` and `FRONTEND_URL` to your Vercel URL.
-- **Frontend:** Deploy to [Vercel](https://vercel.com). Set `NEXT_PUBLIC_API_URL` to your Render backend URL.
-- **Database:** Use Aiven MySQL as in `.env`.
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for step-by-step Render + Vercel deployment, required env vars, CORS/cookie settings, and troubleshooting.
+
+- **Backend (Render):** Set `NODE_ENV=production`, `DATABASE_URL` (Aiven MySQL), `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, `FRONTEND_URL` (your Vercel URL).
+- **Frontend (Vercel):** Set `NEXT_PUBLIC_API_URL` to your Render backend URL (e.g. `https://your-app.onrender.com`).
+- **Database:** Use Aiven MySQL; run `prisma db push` and `prisma db seed` once with production `DATABASE_URL`.
 
 ## Features
 
