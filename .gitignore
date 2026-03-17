@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment (never commit secrets)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env.local
+
+# Build / cache
+.next/
+dist/
+*.log
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+
+# IDE
+.idea/
+.vscode/

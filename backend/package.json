@@ -1,0 +1,26 @@
+{
+  "name": "lms-backend",
+  "version": "1.0.0",
+  "description": "LMS Backend - Express + Prisma + MySQL",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:generate": "node node_modules/prisma/build/index.js generate",
+    "db:push": "node node_modules/prisma/build/index.js db push",
+    "db:seed": "node prisma/seed.js",
+    "setup": "npm run db:generate && npm run db:push && npm run db:seed",
+    "db:use-sqlite": "node node_modules/prisma/build/index.js generate --schema=prisma/schema.sqlite.prisma && node node_modules/prisma/build/index.js db push --schema=prisma/schema.sqlite.prisma && node scripts/use-sqlite-env.js && node prisma/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.7.0",
+    "@prisma/client": "^5.7.0"
+  }
+}
