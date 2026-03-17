@@ -2,9 +2,47 @@
 
 Udemy-like learning platform with courses, video progress tracking, and an AI chatbot.
 
+**Repo:** [github.com/neha102004/lmss](https://github.com/neha102004/lmss)
+
 ---
 
-## Steps to run
+## Clone from GitHub and run
+
+After cloning, the project runs with **SQLite** (no external database needed). Use **two terminals**.
+
+```bash
+# 1. Clone
+git clone https://github.com/neha102004/lmss.git
+cd lmss
+
+# 2. Backend — create .env and use SQLite
+cd backend
+copy .env.example .env
+npm install
+npm run db:use-sqlite
+
+# 3. Start backend (leave running)
+npm run dev
+```
+
+In a **second terminal**:
+
+```bash
+cd lmss/frontend
+copy .env.local.example .env.local
+npm install --ignore-scripts
+npm run dev
+```
+
+Open **http://localhost:3000** (or **http://localhost:3001** if 3000 is in use). Log in with **demo@lms.com** / **demo123**.
+
+**On Mac/Linux:** use `cp` instead of `copy` (e.g. `cp .env.example .env`).
+
+For more detail, see **[SETUP-AFTER-CLONE.md](SETUP-AFTER-CLONE.md)**.
+
+---
+
+## Steps to run (existing project)
 
 Do these in order. Use **two terminals** (one for backend, one for frontend).
 
