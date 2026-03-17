@@ -4,6 +4,37 @@ When the app is deployed, the frontend (Vercel) and backend (Render) run on diff
 
 ---
 
+## Still not working? Do this first
+
+1. **Vercel – Root Directory**  
+   In Vercel → Project → **Settings → General**: set **Root Directory** to `frontend`. Save and **Redeploy**.
+
+2. **Vercel – API URL**  
+   In Vercel → **Settings → Environment Variables** add:
+   - Name: `NEXT_PUBLIC_API_URL`  
+   - Value: your **Render** backend URL, e.g. `https://your-app.onrender.com` (no trailing slash).  
+   Then trigger a **new deployment** (Deployments → ⋮ → Redeploy).  
+   `NEXT_PUBLIC_*` is baked in at build time; changing it later requires a redeploy.
+
+3. **Render – Env vars**  
+   In Render → your service → **Environment**: add  
+   `NODE_ENV` = `production`,  
+   `FRONTEND_URL` = your **Vercel** URL (e.g. `https://lmss-nu.vercel.app`),  
+   `DATABASE_URL` = your **Aiven MySQL** connection string,  
+   `JWT_ACCESS_SECRET` and `JWT_REFRESH_SECRET` = long random strings (32+ chars).  
+   Save (Render will redeploy).
+
+4. **Database**  
+   Backend needs tables. In Render **Shell** (or locally with the same `DATABASE_URL`):
+   ```bash
+   cd backend && npx prisma db push && npx prisma db seed
+   ```
+
+5. **Render cold start**  
+   On the free tier, the backend sleeps after ~15 min. The first request after that can take **30–60 seconds**. Try login again after waiting a minute, or open the backend URL in a new tab to wake it.
+
+---
+
 ## 1. Backend (Render)
 
 1. Create a **Web Service** on [Render](https://render.com).
